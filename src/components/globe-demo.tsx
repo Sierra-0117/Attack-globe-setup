@@ -1,39 +1,22 @@
-import React, { Suspense, useState, useEffect } from "react";
+import React, { Suspense } from "react";
 import { motion } from "framer-motion";
 import { World } from "@/components/ui/globe";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { AlertTriangle, Shield, Eye, Activity } from "lucide-react";
 
 export default function GlobeDemo() {
-  const [activeThreats, setActiveThreats] = useState(1247);
-  const [blockedAttacks, setBlockedAttacks] = useState(8932);
-  const [currentTime, setCurrentTime] = useState(new Date());
-
-  // Update threat counters to simulate live monitoring
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveThreats(prev => prev + Math.floor(Math.random() * 5));
-      setBlockedAttacks(prev => prev + Math.floor(Math.random() * 12));
-      setCurrentTime(new Date());
-    }, 2000);
-    return () => clearInterval(interval);
-  }, []);
-
   const globeConfig = {
     pointSize: 4,
-    globeColor: "#0a0a0a",
+    globeColor: "#062056",
     showAtmosphere: true,
-    atmosphereColor: "#ff0000",
-    atmosphereAltitude: 0.15,
-    emissive: "#330000",
-    emissiveIntensity: 0.2,
+    atmosphereColor: "#FFFFFF",
+    atmosphereAltitude: 0.1,
+    emissive: "#062056",
+    emissiveIntensity: 0.1,
     shininess: 0.9,
-    polygonColor: "rgba(255,0,0,0.3)",
-    ambientLight: "#ff0000",
-    directionalLeftLight: "#ff4444",
+    polygonColor: "rgba(255,255,255,0.7)",
+    ambientLight: "#38bdf8",
+    directionalLeftLight: "#ffffff",
     directionalTopLight: "#ffffff",
-    pointLight: "#ff0000",
+    pointLight: "#ffffff",
     arcTime: 1000,
     arcLength: 0.9,
     rings: 1,
@@ -43,7 +26,7 @@ export default function GlobeDemo() {
     autoRotateSpeed: 0.5,
   };
   
-  const colors = ["#ff0000", "#ff4444", "#cc0000"];
+  const colors = ["#06b6d4", "#3b82f6", "#6366f1"];
   const sampleArcs = [
     {
       order: 1,
@@ -408,121 +391,34 @@ export default function GlobeDemo() {
   ];
 
   return (
-    <div className="min-h-screen bg-black text-white relative w-full overflow-hidden">
-      {/* Cyber Security Header */}
-      <div className="absolute top-0 left-0 right-0 z-50 p-6">
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center gap-3">
-            <Shield className="h-8 w-8 text-red-500" />
-            <h1 className="text-2xl font-bold text-red-500">CYBER THREAT MONITOR</h1>
-          </div>
-          <div className="flex items-center gap-2">
-            <Activity className="h-4 w-4 text-green-500 animate-pulse" />
-            <span className="text-green-500 text-sm font-mono">LIVE</span>
-            <span className="text-gray-400 text-sm font-mono ml-4">
-              {currentTime.toLocaleTimeString()}
-            </span>
-          </div>
-        </div>
-
-        {/* Status Cards */}
-        <div className="grid grid-cols-4 gap-4 mb-6">
-          <Card className="bg-red-950/50 border-red-800 backdrop-blur-sm">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm text-red-400 flex items-center gap-2">
-                <AlertTriangle className="h-4 w-4" />
-                Active Threats
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-2xl font-bold text-red-500 font-mono">{activeThreats.toLocaleString()}</p>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-green-950/50 border-green-800 backdrop-blur-sm">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm text-green-400 flex items-center gap-2">
-                <Shield className="h-4 w-4" />
-                Blocked Attacks
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-2xl font-bold text-green-500 font-mono">{blockedAttacks.toLocaleString()}</p>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-blue-950/50 border-blue-800 backdrop-blur-sm">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm text-blue-400 flex items-center gap-2">
-                <Eye className="h-4 w-4" />
-                Monitoring Status
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <Badge variant="secondary" className="bg-green-900 text-green-400">OPERATIONAL</Badge>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-purple-950/50 border-purple-800 backdrop-blur-sm">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm text-purple-400">Risk Level</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <Badge variant="destructive" className="bg-red-900 text-red-400">HIGH</Badge>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-
-      {/* Main Globe Container */}
-      <div className="flex flex-row items-center justify-center h-screen relative w-full">
-        <div className="max-w-7xl mx-auto w-full relative overflow-hidden h-full px-4">
-          <motion.div
-            initial={{
-              opacity: 0,
-              y: 20,
-            }}
-            animate={{
-              opacity: 1,
-              y: 0,
-            }}
-            transition={{
-              duration: 1,
-            }}
-            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center z-30"
-          >
-            <h2 className="text-xl md:text-4xl font-bold text-red-500 mb-2 animate-pulse">
-              GLOBAL THREAT DETECTION
-            </h2>
-            <p className="text-base md:text-lg text-red-300 max-w-md mx-auto">
-              Real-time visualization of cyber attacks and security threats across the globe
-            </p>
-          </motion.div>
-          
-          <div className="absolute w-full bottom-0 inset-x-0 h-40 bg-gradient-to-b pointer-events-none select-none from-transparent to-black z-40" />
-          <div className="absolute w-full top-0 bottom-0 h-full z-10">
-            <Suspense fallback={
-              <div className="flex items-center justify-center h-full">
-                <div className="text-red-500 font-mono">INITIALIZING THREAT MONITOR...</div>
-              </div>
-            }>
-              <World data={sampleArcs} globeConfig={globeConfig} />
-            </Suspense>
-          </div>
-        </div>
-      </div>
-
-      {/* Footer Status Bar */}
-      <div className="absolute bottom-0 left-0 right-0 bg-black/80 backdrop-blur-sm border-t border-red-800 p-4 z-50">
-        <div className="flex items-center justify-between text-sm">
-          <div className="flex items-center gap-6 text-red-400 font-mono">
-            <span>CONNECTIONS: {sampleArcs.length}</span>
-            <span>REGIONS: 47</span>
-            <span>PROTOCOLS: TCP/UDP/HTTP</span>
-          </div>
-          <div className="text-gray-400">
-            © 2024 CyberSec Division - Classification: CONFIDENTIAL
-          </div>
+    <div className="flex flex-row items-center justify-center py-20 h-screen md:h-auto bg-background relative w-full">
+      <div className="max-w-7xl mx-auto w-full relative overflow-hidden h-full md:h-[40rem] px-4">
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 20,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            duration: 1,
+          }}
+          className="div"
+        >
+          <h2 className="text-center text-xl md:text-4xl font-bold text-foreground animate-float">
+            Global Connections Network
+          </h2>
+          <p className="text-center text-base md:text-lg font-normal text-muted-foreground max-w-md mt-2 mx-auto">
+            Interactive 3D globe showcasing worldwide connections with beautiful animations and real-time data visualization.
+          </p>
+        </motion.div>
+        <div className="absolute w-full bottom-0 inset-x-0 h-40 bg-gradient-to-b pointer-events-none select-none from-transparent to-background z-40" />
+        <div className="absolute w-full -bottom-20 h-72 md:h-full z-10">
+          <Suspense fallback={<div className="flex items-center justify-center h-full text-muted-foreground">Loading Globe...</div>}>
+            <World data={sampleArcs} globeConfig={globeConfig} />
+          </Suspense>
         </div>
       </div>
     </div>
