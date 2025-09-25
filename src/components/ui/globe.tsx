@@ -270,9 +270,9 @@ export function World(props: WorldProps) {
       <Globe {...props} />
       <OrbitControls
         enablePan={false}
-        enableZoom={true}
-        minDistance={200}
-        maxDistance={600}
+        enableZoom={false}
+        minDistance={cameraZ}
+        maxDistance={cameraZ}
         autoRotateSpeed={1}
         autoRotate={true}
         minPolarAngle={Math.PI / 3.5}
